@@ -20,7 +20,7 @@
         width: 80%;
         margin-left: 10%;
         margin-right: 10%;
-        height: 25%;
+        height: 27.5%;
         background-color: lightgray;
         border-radius: 0 0 10px 10px;
     }
@@ -41,6 +41,7 @@
         font-family: Tahoma;
         margin-top: 5px;
         margin-bottom: 5px;
+        padding: 2px 2px 2px 2px;
         margin-right: 2%;
     }
     #submit {
@@ -79,7 +80,8 @@
 
         var loadingUsers = false, 
             noMoreUsers = false,
-            searching = false
+            searching = false,
+            updateScroll = 0
 
         var getUsers = function(offset, callback) {
             // Get the next 100 users from the database with the given
@@ -93,9 +95,20 @@
 
             xhr.onreadystatechange = () => {
                 if (xhr.readyState !== 4 || xhr.status !== 200) { return }
+
                 json = JSON.parse(xhr.responseText)
                 callback(json['result'])
             }
+        }
+
+        var displayNewUsers = function(newUsers) {
+            // Set the appropriate flags, then add the recently fetched
+            // users to the user array and display them in the DOM
+
+            loadingUsers = false
+            noMoreUsers = (!newUsers) || (newUsers.length == 0)
+            users.push(...newUsers)
+            displayUsers()
         }
 
         var displayUsers = function() {
@@ -150,16 +163,14 @@
                             .style('background-color', bcolor)
                             .style('color', fcolor)
                     })
-        }
-        
-        var displayNewUsers = function(newUsers) {
-            // Set the appropriate flags, then add the recently fetched
-            // users to the user array and display them in the DOM
 
-            loadingUsers = false
-            noMoreUsers = (!newUsers) || (newUsers.length == 0)
-            users.push(...newUsers)
-            displayUsers()
+            if (updateScroll == 0) { return }
+            if (updateScroll == 1) {
+                d3.select('#names').property('scrollTop', 0)
+            } else {
+                var scrollHeight = d3.select('#names').property('scrollHeight')
+                d3.select('#names').property('scrollTop', scrollHeight)
+            }
         }
 
         d3.select('#searchbar')
@@ -171,7 +182,8 @@
                 // If we have deleted the query, go back to displaying all users
                 if (text.length == 0) {
                     searching = false
-                    displayCount = 0
+                    displayBatch = 0
+                    updateScroll = 1
                     displayUsers()
                 }
                 return 
@@ -198,11 +210,15 @@
             if (!noMoreUsers) {
                 // TODO: display button offering user to search entire database
             }
+            displayBatch = 0
+            updateScroll = 1
             displayUsers()
         })
 
         d3.select('#names')
         .on('scroll', () => {
+            if (displayedUsers.length < displayCount) { return }
+            
             var lastCell = d3.select('#cell'+(displayedUsers.length-1))
             var lastY = lastCell.node().getBoundingClientRect().bottom
             var contY = d3.select('#names').node().getBoundingClientRect().bottom
@@ -213,19 +229,25 @@
                 // If the id in the last displayed cell is the last stored user id
                 // and if we are not loading more users and there are more users to
                 // be loaded, then load the next 100 users and display them.
-                if (lastCell.attr('id') === users[users.length-1].id) {
-                    if (!loadingUsers && !noMoreUsers) {
+                if (parseInt(lastCell.attr('uid')) === users[users.length-1].id) {
+                    if (updateScroll == 0 && !loadingUsers && !noMoreUsers) {
+                        displayBatch++
+                        updateScroll = 1
                         getUsers(users.length, displayNewUsers)
                     }
                 } 
                 // Otherwise, we have already loaded the next 100 users, so just
                 // increment the displayBatch and display the next displayCount users.
-                else if (displayBatch < parseInt(''+displayedUsers.length/displayCount)) {
+                //else if (updateScroll == 0 && displayBatch < parseInt(''+displayedUsers.length/displayCount)) {
+                else if (updateScroll == 0) {
                     displayBatch++
+                    updateScroll = 1
                     displayUsers()
                 }
                 // Exit the function
                 return
+            } else if (updateScroll == -1) {
+                updateScroll = 0
             }
 
             var lastY = d3.select('#cell0').node().getBoundingClientRect().top
@@ -235,9 +257,16 @@
             // the top of the scroll container, then we have clearly already loaded
             // the 100 previous users, so just decrement the displayBatch and 
             // display the previous displayCount users.
-            if (Math.abs(contY - lastY) <= 20 && displayBatch > 0) {
-                displayBatch--
-                displayUsers()
+            if (Math.abs(contY - lastY) <= 20) {
+                if (updateScroll == 0) {
+                    if (displayBatch > 0) {
+                        displayBatch--
+                        updateScroll = -1
+                        displayUsers()
+                    }
+                }
+            } else if (updateScroll == 1) {
+                updateScroll = 0
             }
         })
 
