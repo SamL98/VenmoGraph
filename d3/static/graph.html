@@ -105,14 +105,13 @@
             // otherwise, display from the list of all users
             displayedUsers = users
             if (searching) { displayedUsers = filteredUsers }
+
+            // Regardless of which array of users, just display the
+            // current displayCount at the given displayBatch
             displayedUsers = displayedUsers.slice(
                 displayBatch * displayCount,
                 (displayBatch+1) * displayCount
             )
-
-            // Regardless of which array of users, just display the current
-            // displayCount at the given displayBatch
-            //displayedUsers = displayedUsers.slice(displayBatch*displayCount, (displayBatch+1)*displayCount)
 
             d3.select('#names').selectAll('li').remove()
             d3.select('#names').selectAll('li')
