@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="http://d3js.org/d3.v2.min.js?2.9.3"></script>
+<style>
+    .link {
+        stroke: black;
+    }
+    .node text {
+        stroke: #333;
+        cursor: pointer;
+    }
+    .node circle {
+        stroke: #fff;
+        stroke-width: 3px;
+        fill: #555;
+    }
+    #search-container {
+        position: absolute;
+        top: 0;
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+        height: 25%;
+        background-color: lightgray;
+        border-radius: 0 0 10px 10px;
+    }
+    #searchbar {
+        margin: 7.5px 2% 0px 2%;
+        width: 96%;
+        height: 20px;
+    }
+    #names {
+        background-color: white;
+        height: 75%;
+        margin-top: 5px;
+        margin-left: 2%;
+        margin-right: 1.5%;
+        overflow: auto;
+    }
+    .name-cell {
+        font-family: Tahoma;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-right: 2%;
+    }
+    #submit {
+        cursor: pointer;
+        background-color: steelblue;
+        color: white;
+        border-radius: 7.5px;
+        border: none;
+        font-family: Tahoma;
+        font-size: 1.05em;
+        width: 75px;
+        height: 35px;
+        float: right;
+    }
+</style>
+<body>
+    <div id="search-container">
+        <input type="text" id="searchbar" autocomplete="off" autocorrect="off" spellcheck="off">
+        <ul id="names"></ul>
+        <button id="submit">Enter</button>
+    </div>
+    <script>
+        // displayCount - the number of users to display at a time
+        // dispayBatch - the batch of the users we are currently displaying
+        var displayCount = 50,
+            displayBatch = 0
+
+        // users - all users returned from the database
+        // displayedUsers - the users currently being displayed
+        // filteredUsers - the users that contain the query text
+        // selectedUsers - the users that have been clicked on (just ids)
+        var users = [],
+            displayedUsers = [],
+            filteredUsers = [],
+            selectedUsers = []
+
+        var loadingUsers = false, 
+            noMoreUsers = false,
+            searching = false
+
+        var getUsers = function(offset, callback) {
+            // Get the next 100 users from the database with the given
+            // offset and then callback the result
+
+            loadingUsers = true
+
+            var xhr = new XMLHttpRequest()
+            xhr.open('GET', 'users?limit=100&offset=' + offset)
+            xhr.send(null);
+
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState !== 4 || xhr.status !== 200) { return }
+                json = JSON.parse(xhr.responseText)
+                callback(json['result'])
+            }
+        }
+
+        var displayUsers = function() {
+            // Add the users to display to the DOM
+
+            // If we are searching, display the filteredUsers,
+            // otherwise, display from the list of all users
+            displayedUsers = users
+            if (searching) { displayedUsers = filteredUsers }
+            displayedUsers = displayedUsers.slice(
+                displayBatch * displayCount,
+                (displayBatch+1) * displayCount
+            )
+
+            // Regardless of which array of users, just display the current
+            // displayCount at the given displayBatch
+            //displayedUsers = displayedUsers.slice(displayBatch*displayCount, (displayBatch+1)*displayCount)
+
+            d3.select('#names').selectAll('li').remove()
+            d3.select('#names').selectAll('li')
+                .data(displayedUsers).enter()
+                .append('li')
+                    .attr('class', 'name-cell')
+                    .attr('selected', 'false')
+                    .attr('id', (u, i) => { return 'cell'+i })
+                    .attr('uid', (u) => { return u.id })
+                    .text((u) => { return u.name })
+                    .style('background-color', (u) => {
+                        if (selectedUsers.indexOf(u.id) >= 0) { return 'steelblue' }
+                        return 'white'
+                    })
+                    .style('color', (u) => {
+                        if (selectedUsers.indexOf(u.id) >= 0) { return 'white' }
+                        return 'black'
+                    })
+                    .on('mousedown', (u, i) => {
+                        var elem = d3.select('#cell'+i)
+                        var selected = elem.attr('selected')
+                        var bcolor = 'steelblue'
+                        var fcolor = 'white'
+
+                        if (selected === 'true') {
+                            bcolor = 'white'
+                            fcolor = 'black'
+                            elem.attr('selected', 'false')
+                            selectedUsers.splice(selectedUsers.indexOf(u.id), 1)
+                        } else {
+                            elem.attr('selected', 'true')
+                            selectedUsers.push(u.id)
+                        }
+
+                        elem
+                            .style('background-color', bcolor)
+                            .style('color', fcolor)
+                    })
+        }
+        
+        var displayNewUsers = function(newUsers) {
+            // Set the appropriate flags, then add the recently fetched
+            // users to the user array and display them in the DOM
+
+            loadingUsers = false
+            noMoreUsers = (!newUsers) || (newUsers.length == 0)
+            users.push(...newUsers)
+            displayUsers()
+        }
+
+        d3.select('#searchbar')
+        .on('input', () => {
+            var text = document.getElementById('searchbar').value
+
+            // Only filter based on querys of length greater than 2
+            if (text.length < 3) {  
+                // If we have deleted the query, go back to displaying all users
+                if (text.length == 0) {
+                    searching = false
+                    displayCount = 0
+                    displayUsers()
+                }
+                return 
+            }
+            searching = true
+
+            // Filter the users based on whether their name contains the query text
+            filteredUsers = users.filter((user) => { return user.name.toLowerCase().indexOf(text.toLowerCase()) >= 0 })
+
+            // If no users were found, then execute an API request to search the database
+            if (filteredUsers.length == 0) {
+                var xhr = new XMLHttpRequest()
+                xhr.open('GET', 'search?q=' + encodeURIComponent(text) + '&pname=' + encodeURIComponent(users[users.length-1].name))
+                xhr.send(null)
+
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState !== 4 || xhr.status !== 200) { return }
+                    var json = JSON.parse(xhr.responseText)
+                    filteredUsers = json['result']
+                    displayNewUsers(filteredUsers)
+                }
+            }
+
+            if (!noMoreUsers) {
+                // TODO: display button offering user to search entire database
+            }
+            displayUsers()
+        })
+
+        d3.select('#names')
+        .on('scroll', () => {
+            var lastCell = d3.select('#cell'+(displayedUsers.length-1))
+            var lastY = lastCell.node().getBoundingClientRect().bottom
+            var contY = d3.select('#names').node().getBoundingClientRect().bottom
+
+            // If the bottom of the last displayed cell is within 20 pixels of
+            // the bottom of the scroll container, then display new users.
+            if (Math.abs(contY - lastY) <= 20) {
+                // If the id in the last displayed cell is the last stored user id
+                // and if we are not loading more users and there are more users to
+                // be loaded, then load the next 100 users and display them.
+                if (lastCell.attr('id') === users[users.length-1].id) {
+                    if (!loadingUsers && !noMoreUsers) {
+                        getUsers(users.length, displayNewUsers)
+                    }
+                } 
+                // Otherwise, we have already loaded the next 100 users, so just
+                // increment the displayBatch and display the next displayCount users.
+                else if (displayBatch < parseInt(''+displayedUsers.length/displayCount)) {
+                    displayBatch++
+                    displayUsers()
+                }
+                // Exit the function
+                return
+            }
+
+            var lastY = d3.select('#cell0').node().getBoundingClientRect().top
+            var contY = d3.select('#names').node().getBoundingClientRect().top
+
+            // Otherwise, if the first displayed cell is withint 20 pixels of
+            // the top of the scroll container, then we have clearly already loaded
+            // the 100 previous users, so just decrement the displayBatch and 
+            // display the previous displayCount users.
+            if (Math.abs(contY - lastY) <= 20 && displayBatch > 0) {
+                displayBatch--
+                displayUsers()
+            }
+        })
+
+        window.onload = function() { getUsers(0, displayNewUsers) }
+
+        d3.select('#submit')
+        .on('mousedown', () => {
+            var vids = selectedUsers.join(':')
+            selectedUsers = []
+
+            var xhr = new XMLHttpRequest()
+            xhr.open('GET', 'pmts/'+vids)
+            xhr.send(null);
+
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState !== 4 || xhr.status !== 200) { return }
+                var json = JSON.parse(xhr.responseText)
+                console.log(json)
+                //json = formatJSON(json['result'])
+
+            }
+        })
+    </script>
+    <script>
+        var w = window.innerWidth, h = window.innerHeight
+        var svg = d3.select('body').append('svg')
+            .attr('width', w).attr('height', h)
+
+        var force = d3.layout.force()
+            .gravity(.05)
+            .distance(250)
+            .charge(-50)
+            .size([w, h])
+
+        var createGraph = function(json) {
+            force
+                .nodes(json.nodes)
+                .links(json.links)
+                .start()
+
+            var link = svg.selectAll('.link')
+                .data(json.links).enter()
+                .append('line')
+                    .attr('class', 'link')
+                    .style('stroke-width', (d) => { return 2.0 })
+
+            var node = svg.selectAll('.node')
+                .data(json.nodes).enter()
+                .append('g')
+                    .attr('class', 'node')
+                    .call(force.drag)
+
+            node.append('circle').attr('r', '5')
+            node.append('text')
+                .attr('dx', 12).attr('dy', '.35em')
+                .text((d) => { return d.name })
+
+            force.on('tick', () => {
+                link
+                    .attr('x1', (d) => { return d.source.x })
+                    .attr('y1', (d) => { return d.source.y })
+                    .attr('x2', (d) => { return d.target.x })
+                    .attr('y2', (d) => { return d.target.y })
+                
+                node.attr('transform', (d) => { 
+                    return 'translate(' + d.x + ',' + d.y + ')'
+                })
+            })
+        }
+    </script>
+</body>

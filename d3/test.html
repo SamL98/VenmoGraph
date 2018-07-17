@@ -1,0 +1,885 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<html class=""  id="html_container" xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","queueTime":0,"licenseKey":"14eefaaf38","agent":"","transactionName":"ZlRQbUJZDEZUUUUNXF8edExeWxZcWlweE1ZTUEJJHnkBVlpHXxBwXl9GS19UDlBHCHAHUF5EXE1zVwxBR11dCFZDH1ZQQ0gDQVZa","applicationID":"2367894","errorBeacon":"bam.nr-data.net","applicationTime":781}</script>
+    <title>Venmo  | Welcome Sam</title>
+   
+
+<meta name="google-site-verification" content="TMDCH0wKTDWnWjChUE4nnRW7K-ZW1AQVHjUM25Vpf-o" />
+<meta name="google-site-verification" content="OiQsJpddveC7tOGSY-LDHekSXyAOZboukHdA95NZzNw" />
+
+
+
+<meta name="keywords" content="Venmo, Payments, Social Payments, Mobile Payments, Mobile Payment App, Friends, Pay Your Friends, Startup, Fun, Free, Simple, Split Bill, Split Check, Split Dinner, iPhone App, Android App, New York City, NYC">
+<link rel="shortcut icon" href="https://d1v6x81qdeozhc.cloudfront.net/static/images/icons/favicon-52320fded27b1c2320b67d782f799882.ico" type="image/x-icon" />
+<link rel="icon" href="https://d1v6x81qdeozhc.cloudfront.net/static/images/icons/favicon-52320fded27b1c2320b67d782f799882.ico" type="image/x-icon" />
+<link rel="image_src" href="https://s3.amazonaws.com/venmo/venmo100x100.jpg" />
+<link rel="apple-touch-icon" href="https://d1v6x81qdeozhc.cloudfront.net/static/images/logo/apple-touch-icon-1a10ee4b947b728d54265ac8c5084f78.png" />
+
+
+
+
+
+
+
+    <link rel="stylesheet" href="https://d1v6x81qdeozhc.cloudfront.net/static/css/reset-fonts-grids-b09b1f223e325e3648101f405347dde3.gz.css" type="text/css" />
+    
+    <link rel="stylesheet" href="https://d1v6x81qdeozhc.cloudfront.net/static/css/app.web.1-5a9bd8417daf8939916a9f2de93f7dcf.gz.css" type="text/css" media="screen" title="venmo web" charset="utf-8" />
+    <link rel="stylesheet" href="https://d1v6x81qdeozhc.cloudfront.net/static/css/js-c6e5024b89d7ec58b0233efc69f1a214.gz.css" type="text/css" media="screen" title="venmo web" charset="utf-8" />
+
+
+
+   
+
+
+    
+
+    
+      <script type="text/javascript" src="https://d1v6x81qdeozhc.cloudfront.net/static/js/compiled-venmo-44517423317bf1f690ae5ab0514e26ec.gz.js"></script>
+      <script src="https://d1v6x81qdeozhc.cloudfront.net/static/js/venmo.j5.min-6eb3b08e05dc833a5787a6a54ad3dcc2.gz.js"></script>
+    
+
+
+   
+   
+    <script type="text/javascript" charset="utf-8">
+      
+try { if (top !== self) top.location.href = self.location.href; } catch(zzz) {}
+
+//
+venmo.logged_in_user_id = 12956990;
+venmo.logged_in_user_leading_for_pref = false;
+venmo.contacts =  [{"username": "Teddy-Truta-Moldovan", "first_name": "Teddy", "last_name": "Truta-Moldovan", "user_id": 24349130, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/59396e18-789f-41f1-90f8-245f5b42ceb0", "full_name": "Teddy Truta-Moldovan", "img_url": "https://venmopics.appspot.com/u/v2/s/59396e18-789f-41f1-90f8-245f5b42ceb0", "id": 24349130}, {"username": "Alec-Moore-4", "first_name": "Alec", "last_name": "Moore", "user_id": 6828461, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/97a313be-b031-4a66-a209-28369e8200cb", "full_name": "Alec Moore", "img_url": "https://venmopics.appspot.com/u/v1/s/97a313be-b031-4a66-a209-28369e8200cb", "id": 6828461}, {"username": "Thomas-Frandsen", "first_name": "Thomas", "last_name": "Frandsen", "user_id": 15948816, "is_group": false, "about": " ", "profile_picture": "https://graph.facebook.com/v2.10/702518853246670/picture?type=square", "full_name": "Thomas Frandsen", "img_url": "https://graph.facebook.com/v2.10/702518853246670/picture?type=square", "id": 15948816}, {"username": "AveryDawes13", "first_name": "Avery", "last_name": "Dawes", "user_id": 16011793, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/54e5d374-c306-4654-bc76-2239911fbf2a", "full_name": "Avery Dawes", "img_url": "https://venmopics.appspot.com/u/v1/s/54e5d374-c306-4654-bc76-2239911fbf2a", "id": 16011793}, {"username": "Jack-Korosy", "first_name": "Jack", "last_name": "Korosy", "user_id": 11976212, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/f/4cf0c726-de10-4525-aead-e198a97325a9", "full_name": "Jack Korosy", "img_url": "https://venmopics.appspot.com/u/v1/f/4cf0c726-de10-4525-aead-e198a97325a9", "id": 11976212}, {"username": "Julia-Uhler", "first_name": "Julia", "last_name": "Uhler", "user_id": 15486998, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "Julia Uhler", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 15486998}, {"username": "MatthewCAnderson", "first_name": "Matthew", "last_name": "Anderson", "user_id": 13647386, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/524cd654-ae96-4d8d-b08a-77406533d85b", "full_name": "Matthew Anderson", "img_url": "https://venmopics.appspot.com/u/v1/s/524cd654-ae96-4d8d-b08a-77406533d85b", "id": 13647386}, {"username": "Ash-Mahenthiran", "first_name": "Ash", "last_name": "Mahenthiran", "user_id": 14333470, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/f/e1e6afa9-2738-439c-9282-3a501058ff1b", "full_name": "Ash Mahenthiran", "img_url": "https://venmopics.appspot.com/u/v1/f/e1e6afa9-2738-439c-9282-3a501058ff1b", "id": 14333470}, {"username": "maxvondeylen", "first_name": "Max", "last_name": "Von Deylen", "user_id": 10275363, "is_group": false, "about": " ", "profile_picture": "https://graph.facebook.com/v2.10/10209203821676323/picture?type=square", "full_name": "Max Von Deylen", "img_url": "https://graph.facebook.com/v2.10/10209203821676323/picture?type=square", "id": 10275363}, {"username": "danmastro", "first_name": "Daniel", "last_name": "Mastropaolo", "user_id": 15948636, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "Daniel Mastropaolo", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 15948636}, {"username": "cfisher16", "first_name": "Connor", "last_name": "Fisher", "user_id": 7446570, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/f/d8215fd3-88c7-45aa-8a33-4f335a098e19", "full_name": "Connor Fisher", "img_url": "https://venmopics.appspot.com/u/v2/f/d8215fd3-88c7-45aa-8a33-4f335a098e19", "id": 7446570}, {"username": "AlexBertolini", "first_name": "Alex", "last_name": "Bertolini", "user_id": 7542832, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v3/f/f170b73f-135d-42cd-b4ff-be6a9e6a49d8", "full_name": "Alex Bertolini", "img_url": "https://venmopics.appspot.com/u/v3/f/f170b73f-135d-42cd-b4ff-be6a9e6a49d8", "id": 7542832}, {"username": "the_king_tuck", "first_name": "Tucker", "last_name": "Walden", "user_id": 13213233, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/adabbfb4-8d08-40cc-92b2-4cfb96d977b3", "full_name": "Tucker Walden", "img_url": "https://venmopics.appspot.com/u/v1/s/adabbfb4-8d08-40cc-92b2-4cfb96d977b3", "id": 13213233}, {"username": "OKrafty", "first_name": "Owen", "last_name": "Kraft", "user_id": 17124404, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v8/s/57f819db-dca3-4757-873b-eacf20cfd8d1", "full_name": "Owen Kraft", "img_url": "https://venmopics.appspot.com/u/v8/s/57f819db-dca3-4757-873b-eacf20cfd8d1", "id": 17124404}, {"username": "erinannpoulsen", "first_name": "Erin", "last_name": "Poulsen", "user_id": 15572533, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "Erin Poulsen", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 15572533}, {"username": "David-Koenitzer-1", "first_name": "David", "last_name": "Koenitzer", "user_id": 14567486, "is_group": false, "about": " ", "profile_picture": "https://graph.facebook.com/v2.10/967115693434441/picture?type=square", "full_name": "David Koenitzer", "img_url": "https://graph.facebook.com/v2.10/967115693434441/picture?type=square", "id": 14567486}, {"username": "Sam-gilliam123", "first_name": "Sam", "last_name": "Gilliam", "user_id": 22932543, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v3/s/d1c5304c-e9b3-4aa6-8fda-9b4a142e2bc1", "full_name": "Sam Gilliam", "img_url": "https://venmopics.appspot.com/u/v3/s/d1c5304c-e9b3-4aa6-8fda-9b4a142e2bc1", "id": 22932543}, {"username": "Hjmccabe", "first_name": "Henry", "last_name": "McCabe", "user_id": 12997184, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/b223f1e0-9cb1-43c3-9cb5-d00c3cfb420f", "full_name": "Henry McCabe", "img_url": "https://venmopics.appspot.com/u/v1/s/b223f1e0-9cb1-43c3-9cb5-d00c3cfb420f", "id": 12997184}, {"username": "EmeryHorvath8", "first_name": "Emery", "last_name": "Horvath", "user_id": 24883552, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/33d762ee-4ad9-497e-bc67-65674dd21a6f", "full_name": "Emery Horvath", "img_url": "https://venmopics.appspot.com/u/v2/s/33d762ee-4ad9-497e-bc67-65674dd21a6f", "id": 24883552}, {"username": "Elijah-Hiltunen", "first_name": "Elijah", "last_name": "Hiltunen", "user_id": 11164741, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/12182db6-478b-4d59-ae23-f0d61314ae24", "full_name": "Elijah Hiltunen", "img_url": "https://venmopics.appspot.com/u/v2/s/12182db6-478b-4d59-ae23-f0d61314ae24", "id": 11164741}, {"username": "Ryan-Rubenstein-2", "first_name": "Ryan", "last_name": "Rubenstein", "user_id": 6778807, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/f/b446e486-e912-45c9-a5fb-587831be6bd2", "full_name": "Ryan Rubenstein", "img_url": "https://venmopics.appspot.com/u/v1/f/b446e486-e912-45c9-a5fb-587831be6bd2", "id": 6778807}, {"username": "tyalbaum", "first_name": "Tyler", "last_name": "Baumgartner", "user_id": 16463952, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/bacc91f7-a2c2-4db6-b297-6584886aeada", "full_name": "Tyler Baumgartner", "img_url": "https://venmopics.appspot.com/u/v1/s/bacc91f7-a2c2-4db6-b297-6584886aeada", "id": 16463952}, {"username": "Michael-Leone-17", "first_name": "Michael", "last_name": "Leone", "user_id": 14195795, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/59d0c16d-a6b3-46df-b70e-0c05d5e2cbe0", "full_name": "Michael Leone", "img_url": "https://venmopics.appspot.com/u/v1/s/59d0c16d-a6b3-46df-b70e-0c05d5e2cbe0", "id": 14195795}, {"username": "Jamesatterholt", "first_name": "James", "last_name": "Atterholt", "user_id": 12802133, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/31f3da7d-5225-41cc-a8ce-d1bcf327ae4e", "full_name": "James Atterholt", "img_url": "https://venmopics.appspot.com/u/v1/s/31f3da7d-5225-41cc-a8ce-d1bcf327ae4e", "id": 12802133}, {"username": "Sarah-Mossler", "first_name": "Sarah", "last_name": "Mossler", "user_id": 11614295, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/f/945ad98b-15e5-4072-8bc7-75d22e197ece", "full_name": "Sarah Mossler", "img_url": "https://venmopics.appspot.com/u/v1/f/945ad98b-15e5-4072-8bc7-75d22e197ece", "id": 11614295}, {"username": "jackmorris98", "first_name": "Jack", "last_name": "Morris", "user_id": 13661284, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "Jack Morris", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 13661284}, {"username": "Nikolay-Stoykov", "first_name": "Nikolay", "last_name": "Stoykov", "user_id": 13703355, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/e00abe7b-1312-4322-9c72-7dd491feed43", "full_name": "Nikolay Stoykov", "img_url": "https://venmopics.appspot.com/u/v2/s/e00abe7b-1312-4322-9c72-7dd491feed43", "id": 13703355}, {"username": "Jt-Wynne", "first_name": "Jt", "last_name": "Wynne", "user_id": 13901924, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/f/709f8dfd-62d0-4bf8-bee2-b672eef0b2fa", "full_name": "Jt Wynne", "img_url": "https://venmopics.appspot.com/u/v1/f/709f8dfd-62d0-4bf8-bee2-b672eef0b2fa", "id": 13901924}, {"username": "LukeHaag", "first_name": "Luke", "last_name": "Haag", "user_id": 12894825, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v5/s/a155d008-8607-42ba-917a-0c461f89bcac", "full_name": "Luke Haag", "img_url": "https://venmopics.appspot.com/u/v5/s/a155d008-8607-42ba-917a-0c461f89bcac", "id": 12894825}, {"username": "Landess-Cart", "first_name": "Landess", "last_name": "Cart", "user_id": 13318252, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/50c86995-7cb2-47de-9197-90ddb302ebbb", "full_name": "Landess Cart", "img_url": "https://venmopics.appspot.com/u/v1/s/50c86995-7cb2-47de-9197-90ddb302ebbb", "id": 13318252}, {"username": "Nick-VanFossen", "first_name": "Nick", "last_name": "Van Fossen", "user_id": 13282928, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/eb8ea15a-e55c-4b25-bc33-880dbe00c5b0", "full_name": "Nick Van Fossen", "img_url": "https://venmopics.appspot.com/u/v1/s/eb8ea15a-e55c-4b25-bc33-880dbe00c5b0", "id": 13282928}, {"username": "simon_shamo", "first_name": "Simon", "last_name": "Shamo", "user_id": 17884281, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/7ae4d94b-45a0-4b8e-b37c-7c640ee24e40", "full_name": "Simon Shamo", "img_url": "https://venmopics.appspot.com/u/v1/s/7ae4d94b-45a0-4b8e-b37c-7c640ee24e40", "id": 17884281}, {"username": "Kian-Shirazi", "first_name": "Kian", "last_name": "Shirazi", "user_id": 11173498, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/f/f62c3984-5592-4ff1-932a-0ef3b1f94605", "full_name": "Kian Shirazi", "img_url": "https://venmopics.appspot.com/u/v1/f/f62c3984-5592-4ff1-932a-0ef3b1f94605", "id": 11173498}, {"username": "Andrew-Smith-430", "first_name": "Andrew", "last_name": "Smith", "user_id": 17255036, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/1950f0e7-c391-4383-b70f-50c941765cea", "full_name": "Andrew Smith", "img_url": "https://venmopics.appspot.com/u/v2/s/1950f0e7-c391-4383-b70f-50c941765cea", "id": 17255036}, {"username": "AlannaS", "first_name": "Alanna", "last_name": "Smollen", "user_id": 25947264, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "Alanna Smollen", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 25947264}, {"username": "Rachel-Lerner-3", "first_name": "Rachel", "last_name": "Lerner", "user_id": 5128322, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/897701d7-b493-4bc4-a8b0-3984d522209d", "full_name": "Rachel Lerner", "img_url": "https://venmopics.appspot.com/u/v2/s/897701d7-b493-4bc4-a8b0-3984d522209d", "id": 5128322}, {"username": "Caroline-McAuley-1", "first_name": "Caroline", "last_name": "McAuley", "user_id": 28324483, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/e86adb4c-f48c-47fb-834f-fc47366c375a", "full_name": "Caroline McAuley", "img_url": "https://venmopics.appspot.com/u/v1/s/e86adb4c-f48c-47fb-834f-fc47366c375a", "id": 28324483}, {"username": "keatonlents", "first_name": "Keaton", "last_name": "Lents", "user_id": 7885960, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v6/s/142bb95f-7268-47a6-bc93-e4c45bb58494", "full_name": "Keaton Lents", "img_url": "https://venmopics.appspot.com/u/v6/s/142bb95f-7268-47a6-bc93-e4c45bb58494", "id": 7885960}, {"username": "joe_evans", "first_name": "Joe", "last_name": "Evans", "user_id": 12766865, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/bcc793a6-84b9-4c98-8b7d-7293ca038464", "full_name": "Joe Evans", "img_url": "https://venmopics.appspot.com/u/v1/s/bcc793a6-84b9-4c98-8b7d-7293ca038464", "id": 12766865}, {"username": "SarahSchwomeyer", "first_name": "Sarah", "last_name": "Schwomeyer", "user_id": 12121746, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/6e0abb49-ac83-45e4-a335-fe8af1f6b551", "full_name": "Sarah Schwomeyer", "img_url": "https://venmopics.appspot.com/u/v2/s/6e0abb49-ac83-45e4-a335-fe8af1f6b551", "id": 12121746}, {"username": "katodak", "first_name": "Kat", "last_name": "Odak", "user_id": 13012120, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/e35f288c-508e-4c18-a007-816abdaaac6b", "full_name": "Kat Odak", "img_url": "https://venmopics.appspot.com/u/v2/s/e35f288c-508e-4c18-a007-816abdaaac6b", "id": 13012120}, {"username": "Duwon-Smithson", "first_name": "Duwon", "last_name": "Smithson", "user_id": 13830299, "is_group": false, "about": " ", "profile_picture": "https://graph.facebook.com/v2.10/2113265208898918/picture?type=square", "full_name": "Duwon Smithson", "img_url": "https://graph.facebook.com/v2.10/2113265208898918/picture?type=square", "id": 13830299}, {"username": "andrei0", "first_name": "Andrei", "last_name": "Petrache", "user_id": 13712544, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v3/s/8a92b74d-f566-4369-9db5-3a5407a733f1", "full_name": "Andrei Petrache", "img_url": "https://venmopics.appspot.com/u/v3/s/8a92b74d-f566-4369-9db5-3a5407a733f1", "id": 13712544}, {"username": "Jonah-Evans-1", "first_name": "Jonah", "last_name": "Evans", "user_id": 9871521, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/d99859c1-aa9b-4887-a905-766f29d3407c", "full_name": "Jonah Evans", "img_url": "https://venmopics.appspot.com/u/v1/s/d99859c1-aa9b-4887-a905-766f29d3407c", "id": 9871521}, {"username": "Andrew-Schmahl", "first_name": "Andrew", "last_name": "Schmahl", "user_id": 8459939, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/1c719dc9-0880-4961-bf63-123b514191aa", "full_name": "Andrew Schmahl", "img_url": "https://venmopics.appspot.com/u/v2/s/1c719dc9-0880-4961-bf63-123b514191aa", "id": 8459939}, {"username": "DavidMarvin", "first_name": "David", "last_name": "Marvin", "user_id": 7316137, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/540e1e31-1c93-445c-98db-a5d8f53776bb", "full_name": "David Marvin", "img_url": "https://venmopics.appspot.com/u/v1/s/540e1e31-1c93-445c-98db-a5d8f53776bb", "id": 7316137}, {"username": "Nate-Heister", "first_name": "Nate", "last_name": "Heister", "user_id": 13905591, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/88604acb-af29-42d1-9d65-d22a50c453c0", "full_name": "Nate Heister", "img_url": "https://venmopics.appspot.com/u/v1/s/88604acb-af29-42d1-9d65-d22a50c453c0", "id": 13905591}, {"username": "dcleary_10", "first_name": "Daniel", "last_name": "Cleary", "user_id": 13795700, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/f/fa59d38e-ba05-4bfd-926a-97e0399af7f1", "full_name": "Daniel Cleary", "img_url": "https://venmopics.appspot.com/u/v1/f/fa59d38e-ba05-4bfd-926a-97e0399af7f1", "id": 13795700}, {"username": "pony6oy23", "first_name": "Braden", "last_name": "Wagle", "user_id": 14339259, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "Braden Wagle", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 14339259}, {"username": "DavidASchwartz", "first_name": "David", "last_name": "Schwartz", "user_id": 21669565, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "David Schwartz", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 21669565}, {"username": "Sylvie-Siegel", "first_name": "Sylvie", "last_name": "Siegel", "user_id": 9657027, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/6178ddb4-aebb-41be-b71c-6608061c4e7a", "full_name": "Sylvie Siegel", "img_url": "https://venmopics.appspot.com/u/v2/s/6178ddb4-aebb-41be-b71c-6608061c4e7a", "id": 9657027}, {"username": "seanstrunk", "first_name": "Sean", "last_name": "Strunk", "user_id": 8856772, "is_group": false, "about": " ", "profile_picture": "https://graph.facebook.com/v2.10/1065113216843116/picture?type=square", "full_name": "Sean Strunk", "img_url": "https://graph.facebook.com/v2.10/1065113216843116/picture?type=square", "id": 8856772}, {"username": "tesswillmott", "first_name": "Tess", "last_name": "Willmott", "user_id": 16344266, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/e2a3971a-8d74-45da-996a-4410989c261a", "full_name": "Tess Willmott", "img_url": "https://venmopics.appspot.com/u/v1/s/e2a3971a-8d74-45da-996a-4410989c261a", "id": 16344266}, {"username": "Noelle-Ibrahim", "first_name": "Noelle", "last_name": "Ibrahim", "user_id": 14678230, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/88e2a5b3-3a44-48fc-9291-5e12872937ea", "full_name": "Noelle Ibrahim", "img_url": "https://venmopics.appspot.com/u/v2/s/88e2a5b3-3a44-48fc-9291-5e12872937ea", "id": 14678230}, {"username": "Camelia-Manring", "first_name": "Camelia", "last_name": "Manring", "user_id": 14833879, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/fb8e36a7-6dee-4265-ae76-764c9297fe3f", "full_name": "Camelia Manring", "img_url": "https://venmopics.appspot.com/u/v1/s/fb8e36a7-6dee-4265-ae76-764c9297fe3f", "id": 14833879}, {"username": "Zachpro", "first_name": "Zachary", "last_name": "Profeta", "user_id": 8162938, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/f1c5ec5e-c2e2-4ccf-ad12-1e10c14478ce", "full_name": "Zachary Profeta", "img_url": "https://venmopics.appspot.com/u/v1/s/f1c5ec5e-c2e2-4ccf-ad12-1e10c14478ce", "id": 8162938}, {"username": "AdelMaroci", "first_name": "Adel", "last_name": "Marociano", "user_id": 12246242, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/590a1130-00b5-4abd-81e9-bba2bba6fddd", "full_name": "Adel Marociano", "img_url": "https://venmopics.appspot.com/u/v2/s/590a1130-00b5-4abd-81e9-bba2bba6fddd", "id": 12246242}, {"username": "Sam-Ristow", "first_name": "Sam", "last_name": "Ristow", "user_id": 13984488, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/f1ab77d3-ee0b-4dbe-8aa5-46975d14ceac", "full_name": "Sam Ristow", "img_url": "https://venmopics.appspot.com/u/v1/s/f1ab77d3-ee0b-4dbe-8aa5-46975d14ceac", "id": 13984488}, {"username": "Kat-Zoeller", "first_name": "Kat", "last_name": "Zoeller", "user_id": 17233282, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/8cfa550f-2920-43df-ae28-bb7073d1d572", "full_name": "Kat Zoeller", "img_url": "https://venmopics.appspot.com/u/v1/s/8cfa550f-2920-43df-ae28-bb7073d1d572", "id": 17233282}, {"username": "crbrooks2", "first_name": "Carson", "last_name": "Brooks", "user_id": 20774130, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/26892a81-81a8-452b-989f-afc1d5705a94", "full_name": "Carson Brooks", "img_url": "https://venmopics.appspot.com/u/v1/s/26892a81-81a8-452b-989f-afc1d5705a94", "id": 20774130}, {"username": "ben-bey", "first_name": "Ben", "last_name": "Bey", "user_id": 4720888, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/cd3db40f-a070-4145-9abf-028013037284", "full_name": "Ben Bey", "img_url": "https://venmopics.appspot.com/u/v1/s/cd3db40f-a070-4145-9abf-028013037284", "id": 4720888}, {"username": "shleylane", "first_name": "Ashley", "last_name": "Lane", "user_id": 10938619, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/51fd7470-f48c-47b5-ab7e-3219994a309a", "full_name": "Ashley Lane", "img_url": "https://venmopics.appspot.com/u/v1/s/51fd7470-f48c-47b5-ab7e-3219994a309a", "id": 10938619}, {"username": "AmberPaparodis", "first_name": "Amber", "last_name": "Paparodis", "user_id": 27849985, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/3d44a6f5-53f0-4cba-b6f5-6158b25f0491", "full_name": "Amber Paparodis", "img_url": "https://venmopics.appspot.com/u/v1/s/3d44a6f5-53f0-4cba-b6f5-6158b25f0491", "id": 27849985}, {"username": "BrianBCombs", "first_name": "Brian", "last_name": "Combs", "user_id": 3181829, "is_group": false, "about": "No Short Bio", "profile_picture": "https://venmopics.appspot.com/u/v1/s/a2413944-8387-4153-b8da-d4d8e8c4ad1a", "full_name": "Brian Combs", "img_url": "https://venmopics.appspot.com/u/v1/s/a2413944-8387-4153-b8da-d4d8e8c4ad1a", "id": 3181829}, {"username": "ConnorBright", "first_name": "Connor", "last_name": "Bright", "user_id": 12894986, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/154898ef-7e4e-400f-aa10-4fac7ea55ab8", "full_name": "Connor Bright", "img_url": "https://venmopics.appspot.com/u/v1/s/154898ef-7e4e-400f-aa10-4fac7ea55ab8", "id": 12894986}, {"username": "Alexander-Bowlby", "first_name": "Alexander", "last_name": "Bowlby", "user_id": 12504194, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/d9274ee7-14ff-4928-a65d-f1f194d28f84", "full_name": "Alexander Bowlby", "img_url": "https://venmopics.appspot.com/u/v1/s/d9274ee7-14ff-4928-a65d-f1f194d28f84", "id": 12504194}, {"username": "Max-Overholt", "first_name": "Max", "last_name": "Overholt", "user_id": 15999255, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/0c5184f0-b82c-4816-a899-e36ad4c4bada", "full_name": "Max Overholt", "img_url": "https://venmopics.appspot.com/u/v2/s/0c5184f0-b82c-4816-a899-e36ad4c4bada", "id": 15999255}, {"username": "jjkroot", "first_name": "Jj", "last_name": "Kroot", "user_id": 12895005, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/f/49787e02-6252-42fc-91ef-65fcf65bf92c", "full_name": "Jj Kroot", "img_url": "https://venmopics.appspot.com/u/v2/f/49787e02-6252-42fc-91ef-65fcf65bf92c", "id": 12895005}, {"username": "Zoe-Pfeiffer", "first_name": "Zoe", "last_name": "Pfeiffer", "user_id": 13201714, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/f/6cd3d755-f20c-4fc9-bdb8-05b321cd161e", "full_name": "Zoe Pfeiffer", "img_url": "https://venmopics.appspot.com/u/v1/f/6cd3d755-f20c-4fc9-bdb8-05b321cd161e", "id": 13201714}, {"username": "Will-Gunderson-2", "first_name": "Will", "last_name": "Gunderson", "user_id": 15854389, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "Will Gunderson", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 15854389}, {"username": "James-Grady-5", "first_name": "James", "last_name": "Grady", "user_id": 17421622, "is_group": false, "about": " ", "profile_picture": "https://graph.facebook.com/v2.10/10206341307171953/picture?type=square", "full_name": "James Grady", "img_url": "https://graph.facebook.com/v2.10/10206341307171953/picture?type=square", "id": 17421622}, {"username": "jackelliher", "first_name": "Jack", "last_name": "Kelliher", "user_id": 10316600, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/4ce388e8-6105-4775-b838-9fd455ed675a", "full_name": "Jack Kelliher", "img_url": "https://venmopics.appspot.com/u/v2/s/4ce388e8-6105-4775-b838-9fd455ed675a", "id": 10316600}, {"username": "Nick-Broyles", "first_name": "Nick", "last_name": "Broyles", "user_id": 23038265, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "Nick Broyles", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 23038265}, {"username": "Myles-Garrett-2", "first_name": "Myles", "last_name": "Garrett", "user_id": 16741690, "is_group": false, "about": " ", "profile_picture": "https://graph.facebook.com/v2.10/1478113902206494/picture?type=square", "full_name": "Myles Garrett", "img_url": "https://graph.facebook.com/v2.10/1478113902206494/picture?type=square", "id": 16741690}, {"username": "cbkosnoff", "first_name": "Cam", "last_name": "Kosnoff", "user_id": 14652732, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/f/c682d561-5661-4075-b2bd-484383af4f3e", "full_name": "Cam Kosnoff", "img_url": "https://venmopics.appspot.com/u/v1/f/c682d561-5661-4075-b2bd-484383af4f3e", "id": 14652732}, {"username": "alliemckinzie", "first_name": "Alexandra", "last_name": "McKinzie", "user_id": 12336963, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/8ba02caf-ddc5-46bc-aec9-b3aaece8fde8", "full_name": "Alexandra McKinzie", "img_url": "https://venmopics.appspot.com/u/v1/s/8ba02caf-ddc5-46bc-aec9-b3aaece8fde8", "id": 12336963}, {"username": "Tahlia-Korin", "first_name": "Tahlia", "last_name": "Korin", "user_id": 12995397, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "Tahlia Korin", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 12995397}, {"username": "Jeremy-Pomerantz-1", "first_name": "Jeremy", "last_name": "Pomerantz", "user_id": 8129352, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v3/s/00fb829f-dd8f-4dd8-ad14-d3035107f7f1", "full_name": "Jeremy Pomerantz", "img_url": "https://venmopics.appspot.com/u/v3/s/00fb829f-dd8f-4dd8-ad14-d3035107f7f1", "id": 8129352}, {"username": "Sam-Johnson-52", "first_name": "Sam", "last_name": "Johnson", "user_id": 5658953, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/f/a5123782-d130-4eac-97ad-23ea55e08969", "full_name": "Sam Johnson", "img_url": "https://venmopics.appspot.com/u/v1/f/a5123782-d130-4eac-97ad-23ea55e08969", "id": 5658953}, {"username": "olihobs", "first_name": "Oliver", "last_name": "Hobson", "user_id": 14928213, "is_group": false, "about": " ", "profile_picture": "https://graph.facebook.com/v2.10/1153208641429308/picture?type=square", "full_name": "Oliver Hobson", "img_url": "https://graph.facebook.com/v2.10/1153208641429308/picture?type=square", "id": 14928213}, {"username": "CjeezyGuwop", "first_name": "Cj", "last_name": "Johnson", "user_id": 9878360, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/6bd70942-5d32-459d-8c7f-b33fe0b3f869", "full_name": "Cj Johnson", "img_url": "https://venmopics.appspot.com/u/v2/s/6bd70942-5d32-459d-8c7f-b33fe0b3f869", "id": 9878360}, {"username": "Will-Deane", "first_name": "Will", "last_name": "Deane", "user_id": 19770201, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/b6b94ae3-a6c8-42be-a868-380aec93f7f9", "full_name": "Will Deane", "img_url": "https://venmopics.appspot.com/u/v2/s/b6b94ae3-a6c8-42be-a868-380aec93f7f9", "id": 19770201}, {"username": "brokeboygeorgehenss", "first_name": "George", "last_name": "Henss", "user_id": 15066460, "is_group": false, "about": " ", "profile_picture": "https://graph.facebook.com/v2.10/326639887696392/picture?type=square", "full_name": "George Henss", "img_url": "https://graph.facebook.com/v2.10/326639887696392/picture?type=square", "id": 15066460}, {"username": "Corban-Joyce", "first_name": "Corban", "last_name": "Joyce", "user_id": 13120864, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/16d39f3d-6cff-45b2-a640-f1db9a6e8e8b", "full_name": "Corban Joyce", "img_url": "https://venmopics.appspot.com/u/v2/s/16d39f3d-6cff-45b2-a640-f1db9a6e8e8b", "id": 13120864}, {"username": "Jaleel-Pryuer", "first_name": "Jaleel", "last_name": "Pryuer", "user_id": 17264482, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "Jaleel Pryuer", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 17264482}, {"username": "Jeffrey-Cohen-2", "first_name": "Jeffrey", "last_name": "Cohen", "user_id": 874868, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "Jeffrey Cohen", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 874868}, {"username": "juliethardesty", "first_name": "Juliet", "last_name": "Hardesty", "user_id": 8911717, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/dc9f3d10-14e9-4153-86ab-1ae680521567", "full_name": "Juliet Hardesty", "img_url": "https://venmopics.appspot.com/u/v2/s/dc9f3d10-14e9-4153-86ab-1ae680521567", "id": 8911717}, {"username": "Maisy-Foley", "first_name": "Maisy", "last_name": "Foley", "user_id": 11588464, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v9/s/e55c5a1a-1299-44bb-bc94-569398823c18", "full_name": "Maisy Foley", "img_url": "https://venmopics.appspot.com/u/v9/s/e55c5a1a-1299-44bb-bc94-569398823c18", "id": 11588464}, {"username": "Joshua-Bonifield", "first_name": "Joshua", "last_name": "Bonifield", "user_id": 7593844, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "Joshua Bonifield", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 7593844}, {"username": "fseverding", "first_name": "Frances", "last_name": "Severding", "user_id": 15505269, "is_group": false, "about": " ", "profile_picture": "https://graph.facebook.com/v2.10/1157946980961749/picture?type=square", "full_name": "Frances Severding", "img_url": "https://graph.facebook.com/v2.10/1157946980961749/picture?type=square", "id": 15505269}, {"username": "Tommy-Cagnassola", "first_name": "Tommy", "last_name": "Cagnassola", "user_id": 13357954, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/9530a5b5-ad90-44c8-9a88-087e04d9de57", "full_name": "Tommy Cagnassola", "img_url": "https://venmopics.appspot.com/u/v2/s/9530a5b5-ad90-44c8-9a88-087e04d9de57", "id": 13357954}, {"username": "Noah-Frankovitz", "first_name": "Noah", "last_name": "Frankovitz", "user_id": 7806865, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/74795063-78d1-47c0-948a-7fa0ae71099e", "full_name": "Noah Frankovitz", "img_url": "https://venmopics.appspot.com/u/v1/s/74795063-78d1-47c0-948a-7fa0ae71099e", "id": 7806865}, {"username": "Hank-Presley", "first_name": "Hank", "last_name": "Presley", "user_id": 12893586, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/4f7f99b4-d28c-4d44-a72c-1b79b01617f4", "full_name": "Hank Presley", "img_url": "https://venmopics.appspot.com/u/v1/s/4f7f99b4-d28c-4d44-a72c-1b79b01617f4", "id": 12893586}, {"username": "TonyRobb", "first_name": "Anthony", "last_name": "Robb", "user_id": 11611028, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/777546dc-6024-4184-928d-e73afb948d46", "full_name": "Anthony Robb", "img_url": "https://venmopics.appspot.com/u/v1/s/777546dc-6024-4184-928d-e73afb948d46", "id": 11611028}, {"username": "jacklinsley", "first_name": "Jack", "last_name": "Griffith-Linsley", "user_id": 13828002, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/fb5ba497-42fe-4018-bd47-667f9d496219", "full_name": "Jack Griffith-Linsley", "img_url": "https://venmopics.appspot.com/u/v1/s/fb5ba497-42fe-4018-bd47-667f9d496219", "id": 13828002}, {"username": "jessicalwang", "first_name": "Jessica", "last_name": "Wang", "user_id": 13080997, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v3/s/8078156c-76c1-4bdc-91f1-d873885911f8", "full_name": "Jessica Wang", "img_url": "https://venmopics.appspot.com/u/v3/s/8078156c-76c1-4bdc-91f1-d873885911f8", "id": 13080997}, {"username": "kklose23", "first_name": "Kevin", "last_name": "Klose", "user_id": 12589997, "is_group": false, "about": " ", "profile_picture": "https://graph.facebook.com/v2.10/1027572867298148/picture?type=square", "full_name": "Kevin Klose", "img_url": "https://graph.facebook.com/v2.10/1027572867298148/picture?type=square", "id": 12589997}, {"username": "Buckeye-Twirl", "first_name": "Buckeye", "last_name": "Twirl", "user_id": 26651567, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "Buckeye Twirl", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 26651567}, {"username": "AriGerstein", "first_name": "Ari", "last_name": "Gerstein", "user_id": 15095218, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/64f1a748-6fd1-464b-ac90-9dccfcb899ba", "full_name": "Ari Gerstein", "img_url": "https://venmopics.appspot.com/u/v1/s/64f1a748-6fd1-464b-ac90-9dccfcb899ba", "id": 15095218}, {"username": "Zach-Whittaker-1", "first_name": "Zach", "last_name": "Whittaker", "user_id": 11404215, "is_group": false, "about": " ", "profile_picture": "https://graph.facebook.com/v2.10/827242074076481/picture?type=square", "full_name": "Zach Whittaker", "img_url": "https://graph.facebook.com/v2.10/827242074076481/picture?type=square", "id": 11404215}, {"username": "Sam-Strattman", "first_name": "Sam", "last_name": "Strattman", "user_id": 12372928, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v3/f/01b4fd55-fe64-430f-bc23-565b3bef017d", "full_name": "Sam Strattman", "img_url": "https://venmopics.appspot.com/u/v3/f/01b4fd55-fe64-430f-bc23-565b3bef017d", "id": 12372928}, {"username": "Andrew-McNutt", "first_name": "Andrew", "last_name": "McNutt", "user_id": 6723147, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/ac4e9f66-8644-492d-89a7-dad6396f7799", "full_name": "Andrew McNutt", "img_url": "https://venmopics.appspot.com/u/v1/s/ac4e9f66-8644-492d-89a7-dad6396f7799", "id": 6723147}, {"username": "Wes-Boland", "first_name": "Wes", "last_name": "Boland", "user_id": 9093060, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/f/d3d8829e-342f-4250-87ab-4b0ac64bda26", "full_name": "Wes Boland", "img_url": "https://venmopics.appspot.com/u/v2/f/d3d8829e-342f-4250-87ab-4b0ac64bda26", "id": 9093060}, {"username": "Awood98", "first_name": "Andy", "last_name": "Wood", "user_id": 11126729, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v4/s/d4ae9d74-5c95-4ade-ab2c-4ba5624d78fb", "full_name": "Andy Wood", "img_url": "https://venmopics.appspot.com/u/v4/s/d4ae9d74-5c95-4ade-ab2c-4ba5624d78fb", "id": 11126729}, {"username": "Robert-Krahulik", "first_name": "Robert", "last_name": "Krahulik", "user_id": 15975882, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v3/s/6f4a97e2-2df3-4602-94d9-341904363e27", "full_name": "Robert Krahulik", "img_url": "https://venmopics.appspot.com/u/v3/s/6f4a97e2-2df3-4602-94d9-341904363e27", "id": 15975882}, {"username": "Cameron-Behringer", "first_name": "Cameron", "last_name": "Behringer", "user_id": 8183758, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "Cameron Behringer", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 8183758}, {"username": "hossroy", "first_name": "Ethan", "last_name": "Roy", "user_id": 11372000, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/027e58fa-2510-407d-a006-cb30c969d269", "full_name": "Ethan Roy", "img_url": "https://venmopics.appspot.com/u/v1/s/027e58fa-2510-407d-a006-cb30c969d269", "id": 11372000}, {"username": "George-Clark-1701", "first_name": "George", "last_name": "Clark", "user_id": 12766184, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/aad938b2-f774-48b2-8c92-77e7fc9dedd1", "full_name": "George Clark", "img_url": "https://venmopics.appspot.com/u/v1/s/aad938b2-f774-48b2-8c92-77e7fc9dedd1", "id": 12766184}, {"username": "JakeMatters", "first_name": "Jake", "last_name": "Matters", "user_id": 13013488, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/0f13b5c0-34bd-475f-878c-50762a446560", "full_name": "Jake Matters", "img_url": "https://venmopics.appspot.com/u/v1/s/0f13b5c0-34bd-475f-878c-50762a446560", "id": 13013488}, {"username": "emma_purcell", "first_name": "Emma", "last_name": "Purcell", "user_id": 9647089, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v1/s/7b66c9be-4a6c-40aa-9f1e-f879543617d4", "full_name": "Emma Purcell", "img_url": "https://venmopics.appspot.com/u/v1/s/7b66c9be-4a6c-40aa-9f1e-f879543617d4", "id": 9647089}, {"username": "EmilRisk", "first_name": "Emil", "last_name": "Risk", "user_id": 7024638, "is_group": false, "about": " ", "profile_picture": "https://venmopics.appspot.com/u/v2/s/9c491679-2bc0-44ab-a80c-052efb6efeac", "full_name": "Emil Risk", "img_url": "https://venmopics.appspot.com/u/v2/s/9c491679-2bc0-44ab-a80c-052efb6efeac", "id": 7024638}] || [];
+venmo.all_contacts_by_uuid =  {};
+venmo.load.num_friends = 95;
+
+venmo.load.DO_HOME = false;
+
+
+venmo.load.on_homepage_logged_in = true;
+
+
+venmo.load.mixpanel_identify_id = null;
+
+venmo.login_url = "/account/login";
+venmo.load.REDIRECT_ANDROID = false;
+venmo.load.REDIRECT_IPHONE = false;
+venmo.onebox_audience_setting = "private"
+venmo.onebox_sharing_settings = ""
+venmo.logged_in_user_balance = 3.15
+//
+venmo.logged_in_user = {"last_name": "Lerner", "lookup_balance_float": 3.15, "full_name": "Sam Lerner", "watchlisted": false, "suspended": false, "profile_picture_medium": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 12956990, "first_name": "Sam", "user_id": 12956990, "profile_picture_large": "https://s3.amazonaws.com/venmo/no-image.gif", "facebook_id": null, "email": "lerner98@gmail.com", "phone_is_verified": true, "username": "Sam-Lerner-2", "is_group": false, "about": " ", "phone": "13174939291", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "share_publicly": 1, "business_name": null, "is_business": false, "blacklisted": null, "best_full_name": "Sam Lerner", "external_id": 2018423966007296426, "date_created": "Tue, Aug 16 2016 21:28:07 GMT", "SUPER": "VenmoUser", "f_balance": "$3.15"};
+//
+//
+venmo.logged_in_user_api_format = {"username": "Sam-Lerner-2", "picture": "https://s3.amazonaws.com/venmo/no-image.gif", "is_business": false, "name": "Sam Lerner", "firstname": "Sam", "lastname": "Lerner", "cancelled": false, "date_created": "2016-08-16T21:28:07", "external_id": "2018423966007296426", "id": "12956990"};
+//
+//
+
+
+    venmo.load.render_get_started = true;
+
+
+
+
+//
+
+//
+venmo.friends.INVITE_CODE_FOR_FRIENDS = 'https://venmo.com/i/Sam-Lerner-2';
+//
+
+//
+
+//
+//
+// 
+
+//
+venmo.logged_in_user_profile_picture = 'https://s3.amazonaws.com/venmo/no-image.gif';
+//
+
+//
+venmo.page_user = {"username": "Sam-Lerner-2", "first_name": "Sam", "last_name": "Lerner", "user_id": 12956990, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "Sam Lerner", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 12956990};
+//
+
+//
+venmo.load.default_home_feed = 'friends';
+//
+
+//
+//
+//
+
+//
+
+venmo.load.business_name = "None";
+
+//
+
+
+//
+
+//
+
+//
+venmo.load.host_name = 'https://venmo.com';
+//
+
+//
+
+//
+
+
+//
+
+//
+
+//
+
+//
+
+//
+
+//
+
+//
+
+//
+
+// 
+
+// 
+
+
+
+    venmo.load.DO_fade_right_nav = true;
+
+venmo.load.ARG_fade_right_nav = false;
+
+
+
+// This loads the filter box within /network/create?domain=facebook
+//
+
+// The following is still used for search
+venmo.story.classes.SORTED_STORY = venmo.story.classes.SORTED_STORY || {};
+// 
+// 
+
+venmo.story.classes.SORTED_STORY_EVERYONE = venmo.story.classes.SORTED_STORY_EVERYONE || {};
+// 
+// 
+
+// 
+
+//
+
+//
+
+//
+
+venmo.load.MDJ = {"logged_in_user": {"last_name": "Lerner", "lookup_balance_float": 3.15, "full_name": "Sam Lerner", "watchlisted": false, "suspended": false, "profile_picture_medium": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 12956990, "first_name": "Sam", "user_id": 12956990, "profile_picture_large": "https://s3.amazonaws.com/venmo/no-image.gif", "facebook_id": null, "email": "lerner98@gmail.com", "phone_is_verified": true, "username": "Sam-Lerner-2", "is_group": false, "about": " ", "phone": "13174939291", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "share_publicly": 1, "business_name": null, "is_business": false, "blacklisted": null, "best_full_name": "Sam Lerner", "external_id": 2018423966007296426, "date_created": "Tue, Aug 16 2016 21:28:07 GMT", "SUPER": "VenmoUser", "f_balance": "$3.15"}, "PROTOCOL": "https", "funding_indicator_type": 1, "logged_in_user_api_format": {"username": "Sam-Lerner-2", "picture": "https://s3.amazonaws.com/venmo/no-image.gif", "is_business": false, "name": "Sam Lerner", "firstname": "Sam", "lastname": "Lerner", "cancelled": false, "date_created": "2016-08-16T21:28:07", "external_id": "2018423966007296426", "id": "12956990"}, "page_user": {"username": "Sam-Lerner-2", "first_name": "Sam", "last_name": "Lerner", "user_id": 12956990, "is_group": false, "about": " ", "profile_picture": "https://s3.amazonaws.com/venmo/no-image.gif", "full_name": "Sam Lerner", "img_url": "https://s3.amazonaws.com/venmo/no-image.gif", "id": 12956990}, "funding_indicator": "https://d1v6x81qdeozhc.cloudfront.net/static/images/bank-da03b3b57b231b14c0d4eaecee858778.png", "HTTPS_PROTOCOL": true, "fi_venmo": "https://d1v6x81qdeozhc.cloudfront.net/static/images/venmo-15713a450cece5aa3e47e3efab899bd8.png", "pending_favs_to_confirm": [], "funding_indicator_last_four": "7049"};
+//
+
+
+//
+venmo.load.fb_is_connected = false;
+//
+//
+//
+venmo.load.fb_can_publish = false;
+//
+
+//
+venmo.load.fb_permissions = 'publish_actions';
+//
+
+//
+
+//
+
+//
+venmo.load.show_disputes_repayment_modal = false;
+//
+
+
+venmo.API_BASE_URL = 'https://api.venmo.com';
+venmo.SESSION_TTL = 1500;
+
+
+if (Vemplate && Vemplate.GLOBALS) Vemplate.GLOBALS['VERSION_PATH'] = '';
+
+    </script>
+   
+       <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# profile: http://ogp.me/ns/profile#">
+<meta property="og:type" content="company" />
+
+<meta property="og:title" content="Venmo" />
+
+<meta property="og:url" content="http://facebook.com/venmo" />
+<meta property="og:image" content="https://s3.amazonaws.com/venmo/venmo100x100.jpg" />
+<meta property="og:site_name" content="Venmo.com" />
+<meta property="og:description" content="Just got Venmo. It's like my phone and my wallet had a beautiful baby!" />
+<meta property="fb:app_id" content="180347063770" />
+<meta property="fb:admins" content="2804997" />
+
+   
+   <script type="text/javascript">
+    (function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");
+    b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+
+    '//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';d=c.getElementsByTagName("script")[0];
+    d.parentNode.insertBefore(b,d);a._i=[];a.init=function(b,c,f){function d(a,b){
+    var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]);a[b]=function(){a.push([b].concat(
+    Array.prototype.slice.call(arguments,0)))}}var g=a;"undefined"!==typeof f?g=a[f]=[]:
+    f="mixpanel";g.people=g.people||[];h=['disable','track','track_pageview','track_links',
+    'track_forms','register','register_once','unregister','identify','alias','name_tag',
+    'set_config','people.set','people.increment','people.track_charge','people.append'];
+    for(e=0;e<h.length;e++)d(g,h[e]);a._i.push([b,c,f])};a.__SV=1.2;})(document,window.mixpanel||[]);
+    mixpanel.init("4e86a2fbdc0db1b114ec9fd3268211aa");
+</script>
+
+   <script type="text/javascript">
+  (function (apiKey) {
+    window.mParticle = window.mParticle || {};
+    window.mParticle.config = window.mParticle.config || {};
+    window.mParticle.config.rq = [];
+    window.mParticle.ready = function (f) {
+        window.mParticle.config.rq.push(f);
+    };
+    var mp = document.createElement('script');
+    mp.type = 'text/javascript';
+    mp.async = true;
+    mp.src = ('https:' == document.location.protocol ? 'https://jssdkcdns' : 'http://jssdkcdn') + '.mparticle.com/js/v1/' + apiKey + '/mparticle.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(mp, s);
+  })("40433222e815b743853a4bb6b7a86058");
+</script>
+
+
+</head>
+
+<body class="align_center" >
+<div id="fb-root"></div>
+<script type="text/javascript">
+    window.fbAsyncInit = function() {
+         // init the FB JS SDK
+        FB.init({
+            appId: '180347063770',
+            status: true,
+            cookie: true,
+            xfbml: true,
+            channelUrl: 'https://venmo.com/channel.html',
+            frictionlessRequests : true,
+            version: 'v2.1'
+        });
+
+        // Additional initialization code such as adding Event Listeners goes here
+        venmo.load.fbInit();
+    };
+    // Load the SDK's source Asynchronously
+    // Note that the debug version is being actively developed and might
+    // contain some type checks that are overly strict.
+    // Please report such bugs using the bugs tool.
+    (function(d, debug){
+         var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement('script'); js.id = id; js.async = true;
+         js.src = "//connect.facebook.net/en_US/sdk" + (debug ? "/debug" : "") + ".js";
+         ref.parentNode.insertBefore(js, ref);
+    }(document, /*debug*/ false));
+
+</script>
+
+<div class="v5_body_background"> 
+    <div id='header_common_csrf'><input type='hidden' name='csrfmiddlewaretoken' value='BEpRa2QNRsZxx5JQCe1dvyChbgkPXGjB' /></div>
+<div id='loading_indicator' style='display:none; z-index:9999; position:fixed; top:0px; left:0px; color:#666;font-weight:bold;padding:5px 5px;font-size:13px;background:#eef;'>Loading...</div>
+<div id='__touch_saving' style='display:none; z-index:9999; position:fixed; top:2px; right:2px; color:#999;background:#000; opacity:0.75; padding:2px 5px;font-size:11px;' class="rounded2">Saving...</div>
+<div id='__touch_loading' style='display:none; z-index:9999; position:fixed; top:2px; right:2px; color:#999;background:#000; opacity:0.75; padding:2px 5px;font-size:11px;' class="rounded2">Loading...</div>
+<script type="text/javascript" charset="utf-8">
+    try{
+        goog.events.listen(window, 'load', venmo.load.window);
+    } catch(zz) {
+        window.onload = venmo.load.window;
+    }
+</script>
+
+    
+    
+
+
+    <input type="hidden" value="Sam-Lerner-2" id="js_logged_in_username_holder"/>
+    
+
+<div id="js_messaging" style=" display:none; width:100%;z-index:999999;top:31px" class="fixed">
+    <div class="content_width_no_borders centered relative">
+        <div class="absolute" style="z-index:5000;right:10px;top:10px;cursor:pointer;">
+            <img src="https://d1v6x81qdeozhc.cloudfront.net/static/assets/gray_x_button-ccaa177ec0ecf8935fb04b2fea5612f7.gif" onclick="venmo.message.hide();return false;"/>
+        </div>
+        <div id="js_messaging_message" class="rounded5 bold align_center p_flash ">
+            <div id='api_messages'></div>
+        </div>
+
+    </div>
+</div>
+
+
+    <div class="goog-hovercard" id="profileCard" style="display:none; position:absolute">
+        <!--<img class="hover_card_arrow" src="https://d1v6x81qdeozhc.cloudfront.net/static/images/icons/top-arrow-3c6a250a0f18b8fbea1626e3dfad9990.png" />-->
+        <div class="hover_card">
+            <span class="small" id='personDetails'>&nbsp;</span>
+        </div>
+    </div>
+    
+      
+        <div id="header">
+      
+            
+            <div class="wmt900">
+            
+                <div id="headerContent fade_first">
+                    <div class="float_left"><a href="/"><img src="https://d1v6x81qdeozhc.cloudfront.net/static/assets/venmo-logo-medium-6-bd75443e979a541fea387bc6040e0af1.png" width="120" height="47" alt="Venmo" style="padding-left:3px;" /></a></div>
+
+                    
+    <div class="float_left" style="padding-left: 12px;">
+        
+        
+            <div class="float_left">
+                <form method="GET" action="/search">
+                    <input id="searchbox" value="Search people" name="q" autocomplete="off" class="light_gray" />
+                    </form>
+            </div>
+            
+        
+            <div class="p_seven_l float_left smaller">
+                <a class="hLink" href="/">Home</a>
+            </div>
+        
+    </div>
+
+    <div class="float_right smaller">
+      
+          <div>
+	    
+	      <a class="hLink"  href="/Sam-Lerner-2">Sam Lerner</a>
+            
+              <a class="hLink" href="/account/statement/">Statement</a>
+              <a class="hLink" href="/account/settings/">Settings</a>
+              <a class="hLink" href="https://help.venmo.com">Help</a>
+              <a class="hLink" href="/account/logout">Log out</a>
+          </div>
+
+      
+    </div>
+
+
+
+
+                        
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
+        
+            <div id="left_and_right" class="wmt900">
+
+            <div class="float_left content_width_no_borders">
+                <div class="m_twenty_t"></div>
+                <div class="
+                                rectBox
+                            ">
+            
+    
+
+
+
+
+    
+
+    <div style="background-color: #fff; padding: 20px 30px; text-align: center;">
+    <h2 style="font-size: 18px; padding: 0 0 15px 0;">
+        Pay and Charge functionality is available in the Venmo app.
+    </h2>
+    <p style="color: #666; font-size: 14px; line-height: 18px;">
+        We’re starting to discontinue the ability to pay and charge someone on <a href="/">Venmo.com</a>. If you want to use these features, get the Venmo app from the
+        <a href="https://itunes.apple.com/us/app/venmo/id351727428?mt=8" rel="noopener noreferrer" target="_blank">App Store</a>
+        or
+        <a href="https://play.google.com/store/apps/details?id=com.venmo" rel="noopener noreferrer" target="_blank">Google Play</a>.
+
+    </p>
+</div>
+
+    </div><div class="gray_box_bbb m_twenty_b white_background width632"><!-- close and reopen from header -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="activity-feed"></div>
+<link rel="stylesheet" href="https://cdn1.venmo.com/production/stylesheets/feed.compiled.css">
+<script src="https://cdn1.venmo.com/production/js/feed.min.js"></script>
+
+<div id="classic-feed">
+
+    <a name="friends_activity"></a>
+    <div style="padding:20px;" class="pill p_twenty_f links_ten_apart gray_bottom_divider light_gray_background">
+        <a id="public_feed_button" class=" align_center" href="#" onclick="venmo.feed.selectTab('public_feed'); return false;"><span>PUBLIC</span></a>
+        <span>&nbsp;</span>
+        <a id="friends_feed_button" class="pActive align_center" href="#" onclick="venmo.feed.selectTab('friends_feed'); return false;">FRIENDS</a>
+        <span>&nbsp;</span>
+        <a id="me_feed_button" class=" align_center" href="#" onclick="venmo.feed.selectTab('me_feed'); return false;">MINE</a>
+        
+    </div>
+
+    <!-- PUBLIC FEED -->
+    <div class="white_background" id="public_feed_container" style="display:none;">
+        <div id="public_feed_no_stories" style="display:none;">
+        </div>
+        <div id="public_feed_story_LAST" rel="do not delete"></div>
+        <div id="public_feed_MORE_BUTTON" class="MORE_BUTTON"
+            onclick="venmo.feed.loadMoreStories('public_feed'); return false;" style="display:none;">
+            <a href="#" class="moreButton">More</a>
+        </div>
+    </div>
+    <!-- FRIENDS FEED -->
+    <div class="white_background" id='friends_feed_container' style="display:;">
+        <div id="friends_feed_no_stories" style="display:none;" class="p_twenty_f">
+            <div class="gray_box light_gray_background rounded5 p_twenty_f">
+
+                  
+                      
+                          <div class="large">You can't use Venmo alone, so invite some friends!</div>
+                          <div class="p_ten_t">Invite your roommate, significant other, or the friends you'll see at happy hour.</div>
+                          <div class="p_twenty_t">
+                              <input type="button" value="Invite some friends to join" class="blueButton" onclick="window.location='/friends/invite'; return false;" style="margin-right:20px;"/>
+                          </div>
+                      
+                  
+
+            </div>
+        </div>
+        <div id="friends_feed_story_LAST" rel="do not delete"></div>
+        <div id="friends_feed_MORE_BUTTON" class="MORE_BUTTON"
+            onclick="venmo.feed.loadMoreStories('friends_feed'); return false;" style="display:none;">
+            <a href="#" class="moreButton">More</a>
+        </div>
+    </div>
+    <!-- ME FEED -->
+    <div class="white_background" id="me_feed_container" style="display:none;">
+        <div id="me_feed_no_stories" style="display:none;" class="p_twenty_f">
+            <div class="gray_box light_gray_background rounded5 p_twenty_f">
+                <div class="large">No payments yet</div>
+                <div class="p_twenty_t">
+                    <input type="button" value="Send a friend a coffee" class="blueButton" onclick="venmo.onebox.click('pay', null, 3, 'Have a latte on me.  Hope you are having a good day!'); return false" style="margin-right:20px;"/>
+                </div>
+            </div>
+        </div>
+        <div id="me_feed_story_LAST" rel="do not delete"></div>
+        <div id="me_feed_MORE_BUTTON" class="MORE_BUTTON"
+            onclick="venmo.feed.loadMoreStories('me_feed'); return false;" style="display:none;">
+            <a href="#" class="moreButton">More</a>
+        </div>
+    </div>
+    
+
+    <script>
+        venmo.noticed.trackFeedImpressions('#me_feed_container', '.me_feed_story', 'Me');
+        venmo.noticed.trackFeedImpressions('#friends_feed_container', '.friends_feed_story', 'Friends');
+        venmo.noticed.trackFeedImpressions('#public_feed_container', '.public_feed_story', 'Public');
+    </script>
+
+</div>
+
+<script>
+    if (window.VenmoFeed) {
+        window.VenmoFeed(document.getElementById('activity-feed'), {
+            actor: venmo.logged_in_user_api_format.external_id
+        });
+    }
+</script>
+
+    <!-- END DYNAMIC STUFF -->
+
+
+    
+    </div><!-- dyn_content -->
+    </div><!-- float_left -->
+    
+    <div class="float_right side_content_width">
+        
+            
+                
+
+<div id="inc_right_side" class=" m_twenty_b">
+
+<!-- USER -->
+<div class="m_twenty_t white_background med_gray_box_top m_twenty_t m_twenty_b">
+    <div class="gray_bottom_divider p_ten_f">
+        
+        <!-- PHOTO -->
+        <div class="float_left">
+            <a href="/Sam-Lerner-2">
+                <img src="https://s3.amazonaws.com/venmo/no-image.gif" onerror="this.src='https://s3.amazonaws.com/venmo/no-image.gif';" longdesc="https://s3.amazonaws.com/venmo/no-image.gif" class="sq75 m_ten_r "/>
+            </a>
+        </div>
+        <!-- NAME -->
+        <div class="name">
+            
+            <a class="bold" href="/Sam-Lerner-2">Sam Lerner</a>
+            
+            
+            <div class="m_five_t small">
+                <a href="/account/settings/profile">+ Add Photo</a>
+            </div>
+            
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!-- Balance & funding info -->
+    <div class="p_ten_f">
+        <div id="balance_right_side" class="balance">
+            $3.15
+        </div>
+        
+            <div class="balance_action_link small">
+                <a href="#" onclick="venmo.funding.cashout(); return false;" class="">
+                  Transfer to Bank &raquo;
+                </a>
+            </div>
+        
+        <div class="clear"></div>
+
+        
+
+    </div>
+</div>
+<!-- PENDING PAYMENTS - EMAIL VERIFICATION-->
+
+
+<!-- GET STARTED -->
+
+<div class="m_twenty_t m_twenty_b white_background gray_box med_gray_box_top" >
+    <div class="p_ten_t p_ten_l p_ten_r p_five_b">
+        <a href="#" onclick="venmo.backboneModal.getStarted(); return false;" style="cursor:pointer;">Getting Started Checklist</a>
+        <div id="getStartedBar" class="m_five_t" onclick="venmo.backboneModal.getStarted(); return false" style="cursor:pointer;" >
+            <div class="bar light_gray_background border_left_edges_five border_right_edges_five">
+                <div class="bar-progress gray border_right_edges_five border_left_edges_five"></div>
+                <div class="progress-text"></div>
+            </div>
+        </div>
+        <div class="p_five_t">
+            <span class="next-up-link"><span class="small gray">NEXT UP: <a href="#" class="next-up-text"></a></span></span>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- FRIENDS -->
+
+<div class="white_background gray_box med_gray_box_top">
+    <div class="sidebarChunk p_ten_f gray">
+        <div class="m_five_b">
+            
+            <a href="/friends" class="">Friends</a> (<span id="num_friends_right_side">95</span>)
+            
+        </div>
+         <div id="friends_right_side">
+            
+                
+                    <span class='anchor' config="down" cardType="profile"
+                        details="Myles Garrett (Myles-Garrett-2)">
+                    <a href="/Myles-Garrett-2" class="">
+                        <img src="https://s3.amazonaws.com/venmo/no-image.gif" onerror="this.src='https://s3.amazonaws.com/venmo/no-image.gif';" longdesc="https://graph.facebook.com/v2.10/1478113902206494/picture?type=square" class="sq35" title="Myles Garrett"/>
+                    </a>
+                    </span>
+                
+                    <span class='anchor' config="down" cardType="profile"
+                        details="Kian Shirazi (Kian-Shirazi)">
+                    <a href="/Kian-Shirazi" class="">
+                        <img src="https://s3.amazonaws.com/venmo/no-image.gif" onerror="this.src='https://s3.amazonaws.com/venmo/no-image.gif';" longdesc="https://venmopics.appspot.com/u/v1/f/f62c3984-5592-4ff1-932a-0ef3b1f94605" class="sq35" title="Kian Shirazi"/>
+                    </a>
+                    </span>
+                
+                    <span class='anchor' config="down" cardType="profile"
+                        details="Andrew McNutt (Andrew-McNutt)">
+                    <a href="/Andrew-McNutt" class="">
+                        <img src="https://s3.amazonaws.com/venmo/no-image.gif" onerror="this.src='https://s3.amazonaws.com/venmo/no-image.gif';" longdesc="https://venmopics.appspot.com/u/v1/s/ac4e9f66-8644-492d-89a7-dad6396f7799" class="sq35" title="Andrew McNutt"/>
+                    </a>
+                    </span>
+                
+                    <span class='anchor' config="down" cardType="profile"
+                        details="Kat Zoeller (Kat-Zoeller)">
+                    <a href="/Kat-Zoeller" class="">
+                        <img src="https://s3.amazonaws.com/venmo/no-image.gif" onerror="this.src='https://s3.amazonaws.com/venmo/no-image.gif';" longdesc="https://venmopics.appspot.com/u/v1/s/8cfa550f-2920-43df-ae28-bb7073d1d572" class="sq35" title="Kat Zoeller"/>
+                    </a>
+                    </span>
+                
+                    <span class='anchor' config="down" cardType="profile"
+                        details="Alex Bertolini (AlexBertolini)">
+                    <a href="/AlexBertolini" class="">
+                        <img src="https://s3.amazonaws.com/venmo/no-image.gif" onerror="this.src='https://s3.amazonaws.com/venmo/no-image.gif';" longdesc="https://venmopics.appspot.com/u/v3/f/f170b73f-135d-42cd-b4ff-be6a9e6a49d8" class="sq35" title="Alex Bertolini"/>
+                    </a>
+                    </span>
+                
+                    <span class='anchor' config="down" cardType="profile"
+                        details="Matthew Anderson (MatthewCAnderson)">
+                    <a href="/MatthewCAnderson" class="">
+                        <img src="https://s3.amazonaws.com/venmo/no-image.gif" onerror="this.src='https://s3.amazonaws.com/venmo/no-image.gif';" longdesc="https://venmopics.appspot.com/u/v1/s/524cd654-ae96-4d8d-b08a-77406533d85b" class="sq35" title="Matthew Anderson"/>
+                    </a>
+                    </span>
+                
+            
+        </div>
+    </div>
+    <div class="sidebarChunk p_ten_f">
+        <div>
+            
+            Invite Friends
+            
+        </div>
+        <div class="m_five_t">
+            <div class="red small" id="email_invite_input_error"></div>
+<div id="email_invite_successes"></div>
+
+<form class="m_ten_t" onsubmit="venmo.friends.inviteCommaSeparatedList('rs_email_address_input', 'rs_personal_message_input', 'right_side_input'); return false;" style="width:242px;"> 
+
+  
+  <textarea placeholder="Invite friends - enter email addresses" rows=1 spellcheck=false onfocus="venmo.utils.showNote('inviteNote');return false;"
+        id="rs_email_address_input" style="width:232px;padding:5px;border:1px solid #999;resize: none;" class="m_ten_r" ></textarea>
+  
+    <div>
+
+        <div id="inviteNote" style="display:none;" class="m_five_t">
+            <div class="gray p_two_t p_two_b">Add Personal Message (optional):</div>
+            <textarea style="width:234px !important;resize:vertical;" id="rs_personal_message_input"></textarea>
+            <table width="100%" class="m_five_t">
+                <tr>
+                    <td class="gray">
+                    </td>
+                    <td style="text-align:right;">
+                        <input class="grayButton" type="submit" value="Invite Friends" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>
+
+
+        </div>
+        <table style="width:100%;" class="m_ten_t">
+            <tr >
+                <td style="width:106px; height:25px;">
+                    <div class="fb-like" data-href="https://www.facebook.com/venmo" data-layout="button_count" data-send="false" data-width="400" data-show-faces=false" ref="like_logged_in" style=""> </div>
+                </td>
+                <td style="width:78px; height:25px;">
+                    <a href="http://www.facebook.com/dialog/feed?caption=Venmo+is+a+free+app+that+friends+use+to+pay+each+other+for+rent%2C+dinner%2C+drinks+and+more.&amp;redirect_uri=https%3A%2F%2Fvenmo.com%2F&amp;link=https%3A%2F%2Fvenmo.com%2Fi%2FSam-Lerner-2%26ref_cat%3Dfacebook&amp;name=Venmo&amp;picture=https%3A%2F%2Fs3.amazonaws.com%2Fvenmo%2Fvenmo100x100.jpg&amp;ref=right_side&amp;app_id=180347063770&amp;description=You%27re+invited%21" target="_blank">
+                        <img src="https://d1v6x81qdeozhc.cloudfront.net/static/images/connect/facebook_16-8221d882015899c7087b8e9a0d90f4a4.png">
+                    </a>
+                    <a href="http://www.facebook.com/dialog/feed?caption=Venmo+is+a+free+app+that+friends+use+to+pay+each+other+for+rent%2C+dinner%2C+drinks+and+more.&amp;redirect_uri=https%3A%2F%2Fvenmo.com%2F&amp;link=https%3A%2F%2Fvenmo.com%2Fi%2FSam-Lerner-2%26ref_cat%3Dfacebook&amp;name=Venmo&amp;picture=https%3A%2F%2Fs3.amazonaws.com%2Fvenmo%2Fvenmo100x100.jpg&amp;ref=right_side&amp;app_id=180347063770&amp;description=You%27re+invited%21" target="_blank">
+                        Share
+                    </a>
+                </td>
+                <td style="width:78px; height:25px;">
+                    <a href="http://twitter.com/?status=I%20think%20Venmo%20really%20did%20it%21%20https%3A//venmo.com/i/Sam-Lerner-2" target="_blank">
+                        <img class="rounded2" src="https://d1v6x81qdeozhc.cloudfront.net/static/images/connect/twitter_bird_16-29c3c8cfde1c4226fa43b2be250695ac.png"></a>
+                    <a href="http://twitter.com/?status=I%20think%20Venmo%20really%20did%20it%21%20https%3A//venmo.com/i/Sam-Lerner-2" target="_blank">Tweet</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- Commented out until we test on IE.
+<div class="white_background gray_box med_gray_box_top m_twenty_t">
+  <div class="sidebarChunk p_ten_f gray">
+    <div class="m_five_b bold">
+      New!
+    </div>
+    <div>
+      Use Venmo to pay in other apps on your iPhone. <a href="#" onclick="venmo.home.showTouchAdvert(); return false;">Learn more</a>.
+    </div>
+  </div>
+</div>
+-->
+
+
+
+
+
+</div>
+
+            
+        
+        
+
+        
+    </div>
+    
+    <div class="clear"></div>
+    <div id="placeholder_to_maintain_width_of_container"></div>
+</div><!-- left_and_right -->
+
+
+</div><!-- v5_body_background --> 
+<div class="clear"></div>
+
+
+     
+
+<div class="pagefooter align_center m_twenty_b small ">
+  <div class="content900 ">
+    <div class="p_twenty_l p_twenty_r">
+      <div class='float_left width200 m_twenty_r p_twenty_t'>
+        <ul>
+          <li class="bold gray m_five_b m_forty_r ">Venmo</li>
+          <li><a href="/info/product" class="">Product</a></li>
+          <li><a href="/info/security" class="">Security</a></li>
+          <li><a href="/info/fees">Fees & FAQ</a></li>
+        </ul>
+      </div>
+      <div class='float_left width200 m_forty_r p_twenty_t'>
+        <ul>
+          <li class="bold gray m_five_b">About</li>
+          <li><a href="/info/about">Team</a></li>
+          <li><a href="/info/jobs">Jobs</a></li>
+          <li><a href="/info/press">Press</a></li>
+        </ul>
+      </div>
+      <div class='float_left width200 m_forty_r p_twenty_t'>
+        <ul>
+          <li class="bold gray m_five_b">Community</li>
+          <li><a href="http://blog.venmo.com/" target="blank">Blog</a></li>
+          <li><a href="https://www.facebook.com/venmo" target="_blank">Facebook</a></li>
+          <li><a href="https://www.twitter.com/venmo" target="_blank">Twitter</a></li>
+        </ul>
+      </div>
+      <div class='float_left width200 m_forty_r p_twenty_t'>
+        <ul>
+          <li class="bold gray m_five_b">Support</li>
+          <li><a href="/info/legal">Legal</a></li>
+          <li><a href="/info/legal_us_privacy_policy" class="">Privacy</a></li>
+          <li><a href="https://help.venmo.com/hc/en-us" id="help-center">Help Center</a></li>
+          <li><a href="https://help.venmo.com/hc/en-us/requests/new" id="contact-us">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="float_right p_ten_t">
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+
+    <div style="border-top:1px dotted #bbb;" class="p_twenty_l p_twenty_r">
+      <div class="float_left">
+        <div class="p_ten_t">
+          <div class="light_gray m_five_b">Venmo is a service of PayPal, Inc., a licensed provider of money transfer services (NMLS ID: 910457). All money transmission is provided by PayPal, Inc. pursuant to <a href="/legal/us-disclosures/">PayPal, Inc.’s licenses</a>. © 2017 PayPal, Inc.</div>
+        </div>
+
+        <div class="p_twenty_t">
+        </div>
+      </div>
+      <div class="float_right p_ten_t">
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+  mixpanel.name_tag('Sam Lerner' + ' ( ' + '12956990' + ' )');
+
+  window.storyToggle = function(contentId, iconId) {
+    return function() {
+      var iconEl = document.getElementById(iconId);
+      var contentEl = document.getElementById(contentId);
+
+      iconEl.classList.toggle('active');
+      contentEl.classList.toggle('is-visible');
+    }
+  };
+window.showHelp = function(dialog_id) {
+    var helpDialogEl = document.getElementById(dialog_id);
+    if(helpDialogEl.style.display == "none") {
+        helpDialogEl.style.display = "block";
+    }
+    else if(helpDialogEl.style.display == "block") {
+        helpDialogEl.style.display = "none";
+    }
+};
+
+document.addEventListener('click', function(event) {
+    // tracking when a user clicks on username in feeds
+    var target = event.target;
+    var tagName = target.tagName.toLowerCase();
+    var track = target.dataset.track;
+    if ( tagName === 'a' && track && track === 'feed-username' ) {
+        var parent = target.parentElement;
+        var typeOfFeed = parent.dataset.storyClass;
+        var feedNameToMparticleEvent = {
+            friends_feed: venmo.mParticle.events.FEED_FRIENDS_MORE,
+            me_feed: venmo.mParticle.events.FEED_ME_MORE
+        };
+        var mParticleEvent = feedNameToMparticleEvent[typeOfFeed];
+
+        if (!mParticleEvent) {
+          //not an event we are tracking, bail
+          return;
+        }
+
+        event.preventDefault();
+        venmo.mParticle.track(feedNameToMparticleEvent[feed_name]);
+    }
+}, false);
+
+</script>
+
+</body>
+
+
+
+<script type="text/javascript">
+
+  if (typeof(venmo)!="undefined") {
+      venmo.load.googleAnalytics = function() {
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-15492939-15', 'auto');
+          ga('send', 'pageview');
+      };
+  } else {
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-15492939-15', 'auto');
+        ga('send', 'pageview');
+  }
+</script>
+
+
+
+</html>
+
