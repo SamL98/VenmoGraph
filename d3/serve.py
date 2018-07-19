@@ -50,7 +50,9 @@ def get_pmts(vid):
         vids = [int(vid)]
 
     query ='select \
-        P1.name as sender, P2.name as receiver, Payment.caption from Payment \
+        P1.id as from_id, P2.id as to_id, \
+        P1.name as sender, P2.name as receiver, \
+        Payment.caption from Payment \
         inner join Person P1 on P1.id=Payment.sender \
         inner join Person P2 on P2.id=Payment.receiver where'
 

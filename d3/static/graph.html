@@ -2,18 +2,6 @@
 <meta charset="utf-8">
 <script src="http://d3js.org/d3.v2.min.js?2.9.3"></script>
 <style>
-    .link {
-        stroke: black;
-    }
-    .node text {
-        stroke: #333;
-        cursor: pointer;
-    }
-    .node circle {
-        stroke: #fff;
-        stroke-width: 3px;
-        fill: #555;
-    }
     #search-container {
         position: absolute;
         top: 0;
@@ -182,6 +170,8 @@
                 // If we have deleted the query, go back to displaying all users
                 if (text.length == 0) {
                     searching = false
+                    filteredUsers = []
+
                     displayBatch = 0
                     updateScroll = 1
                     displayUsers()
@@ -218,7 +208,7 @@
         d3.select('#names')
         .on('scroll', () => {
             if (displayedUsers.length < displayCount) { return }
-            
+
             var lastCell = d3.select('#cell'+(displayedUsers.length-1))
             var lastY = lastCell.node().getBoundingClientRect().bottom
             var contY = d3.select('#names').node().getBoundingClientRect().bottom
@@ -284,57 +274,298 @@
             xhr.onreadystatechange = () => {
                 if (xhr.readyState !== 4 || xhr.status !== 200) { return }
                 var json = JSON.parse(xhr.responseText)
-                console.log(json)
-                //json = formatJSON(json['result'])
 
+                var svg = d3.select('svg')
+                svg.selectAll('.node').remove()
+                svg.selectAll('.link').remove()
+                drawGraph(formatJSON(json['result']))
+
+                addCaptionDisplay()
+                collapseNameContainer()
             }
         })
+
+        var collapseNameContainer = function() {
+            d3.select('#search-container')
+            .transition()
+                .style('height', '0')
+                .style('opacity', '0')
+        }
     </script>
+    <style>
+        .link {
+            stroke: black;
+        }
+        .node text {
+            stroke: #333;
+            cursor: pointer;
+            font-family: sans-serif;
+            font-size: 10px;
+        }
+        .node circle {
+            stroke: #fff;
+            stroke-width: 1.5px;
+        }
+        .links line {
+            stroke: #999;
+            stroke-opacity: 0.6;
+        }
+        path.link {
+            fill: none;
+            stroke: #cccccc;
+            stroke-width: 0.5px
+        }
+        #cap-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 40px;
+            border-bottom-left-radius: 7.5px;
+            background-color: lightgray;
+        }
+        #caption {
+            font-family: Tahoma;
+            font-size: 1.05em;
+            font-weight: 600;
+            width: 96%;
+            margin: 7.5px 2% 5px 2%;
+            background-color: white;
+            padding-left: 2.5px;
+        }
+    </style>
     <script>
-        var w = window.innerWidth, h = window.innerHeight
-        var svg = d3.select('body').append('svg')
-            .attr('width', w).attr('height', h)
+        var addCaptionDisplay = function() {
+            d3.select('body')
+                .append('div').attr('id', 'cap-container')
+                    .append('p').attr('id', 'caption')
+        }
 
-        var force = d3.layout.force()
-            .gravity(.05)
-            .distance(250)
-            .charge(-50)
-            .size([w, h])
+        var formatJSON = function(arr) {
+            var ids = [],
+                links = []
 
-        var createGraph = function(json) {
-            force
-                .nodes(json.nodes)
-                .links(json.links)
-                .start()
+            for (var i = 0; i < arr.length; i++) {
+                var pmt = arr[i]
 
-            var link = svg.selectAll('.link')
-                .data(json.links).enter()
-                .append('line')
+                if (ids.indexOf(pmt.from_id) < 0) {
+                    ids.push(pmt.from_id)
+                }
+
+                if (ids.indexOf(pmt.to_id) < 0) {
+                    ids.push(pmt.to_id)
+                }
+
+                links.push({
+                    'source': {
+                        'id': ids.indexOf(pmt.from_id), 
+                        'label': pmt.sender 
+                    },
+                    'target': {
+                        'id': ids.indexOf(pmt.to_id),
+                        'label': pmt.receiver
+                    },
+                    'caption': pmt.caption
+                })
+            }
+            return {'links': links}
+        }
+
+        function MultiDiGraph() {
+            this.initialize = function(data) {
+                data.links.forEach((d) => {
+                    graph.addNode(d.source)
+                    graph.addNode(d.target)
+                    graph.addLink(d.source, d.target, d.caption)
+                })
+            }
+            var findNode = function(nodeId) {
+                for (var i in nodes) {
+                    if (nodes[i].id === nodeId) { return nodes[i] }
+                }
+            }
+            this.addNode = function(n) {
+                if (!findNode(n.id)) {
+                    nodes.push({'id': n.id, 'label': n.label})
+                    update()
+                }
+            }
+            this.addLink = function(source, target, caption) {
+                links.push({
+                    'source': findNode(source.id), 
+                    'target': findNode(target.id),
+                    'value': caption
+                })
+                update()
+            }
+            var countSiblingLinks = function(source, target) {
+                var count = 0
+                for (var i = 0; i < links.length; i++) {
+                    var b1 = links[i].source.id == source.id && links[i].target.id == target.id
+                    var b2 = links[i].source.id == target.id && links[i].target.id == source.id
+                    if (b1 || b2) {
+                        count++
+                    }
+                }
+                return count
+            }
+            var getSiblingLinks = function(source, target) {
+                var siblings = []
+                for (var i = 0; i < links.length; i++) {
+                    var b1 = links[i].source.id == source.id && links[i].target.id == target.id
+                    var b2 = links[i].source.id == target.id && links[i].target.id == source.id
+                    if (b1 || b2) {
+                        siblings.push(links[i].caption)
+                    }
+                }
+                return siblings
+            }
+
+            var w = window.innerWidth,
+                h = window.innerHeight,
+                middle = w/2
+            var linkDistance = 300
+            var colors = d3.scale.category20()
+
+            var svg = d3.select('body')
+            .append('svg:svg')
+                .attr('width', w)
+                .attr('height', h)
+                .style('z-index', -10)
+                .attr('id', 'graph')
+
+            svg.append('svg:defs').selectAll('marker')
+                .data(['end']).enter()
+                .append('svg:marker')
+                    .attr({
+                        'id': 'arrowhead',
+                        'viewBox': '0 -5 10 10',
+                        'refX': 22,
+                        'refY': 0,
+                        'orient': 'auto',
+                        'markerWidth': 20,
+                        'markerHeight': 20,
+                        'markerUnits': 'strokeWidth',
+                        'xoverflow': 'visible'
+                    })
+                .append('svg:path')
+                    .attr('d', 'M0,-5L10,0L0,5')
+                    .attr('fill', '#ccc')
+
+            var force = d3.layout.force()
+            var nodes = force.nodes(),
+                links = force.links()
+
+            var update = function() {
+                var path = svg.selectAll('path.link')
+                            .data(force.links())
+                path.enter()
+                .append('svg:path')
+                    .attr('id', (d) => { return d.source.id + '-' + d.caption + '-' + d.target.id})
                     .attr('class', 'link')
-                    .style('stroke-width', (d) => { return 2.0 })
+                    .attr('marker-end', 'url(#arrowhead)')
+                path.exit().remove()
 
-            var node = svg.selectAll('.node')
-                .data(json.nodes).enter()
+                var node = svg.selectAll('g.node')
+                            .data(force.nodes())
+                var nodeEnter = node.enter()
                 .append('g')
                     .attr('class', 'node')
                     .call(force.drag)
 
-            node.append('circle').attr('r', '5')
-            node.append('text')
-                .attr('dx', 12).attr('dy', '.35em')
-                .text((d) => { return d.name })
+                nodeEnter.append('svg:circle')
+                    .attr('r', 5)
+                    .attr('id', (d) => { return 'node'+d.id })
+                    .attr('class', 'nodeStrokeClass')
+                    .attr('fill', '#0db7ed')
 
-            force.on('tick', () => {
-                link
-                    .attr('x1', (d) => { return d.source.x })
-                    .attr('y1', (d) => { return d.source.y })
-                    .attr('x2', (d) => { return d.target.x })
-                    .attr('y2', (d) => { return d.target.y })
+                nodeEnter.append('svg:text')
+                    .attr('class', 'textClass')
+                    .attr('x', 20)
+                    .attr('y', '.31em')
+                    .text((d) => { return d.label })
                 
-                node.attr('transform', (d) => { 
-                    return 'translate(' + d.x + ',' + d.y + ')'
+                node.exit().remove()
+
+                function arcPath(leftHand, d) {
+                    var x1 = leftHand ? d.source.x : d.target.x,
+                        y1 = leftHand ? d.source.y : d.target.y,
+                        x2 = leftHand ? d.target.x : d.source.y,
+                        y2 = leftHand ? d.target.y : d.source.y,
+                        dx = x2 - x1, 
+                        dy = y2 - y1,
+                        dr = Math.sqrt(dx*dx + dy*dy),
+                        drx = dr, 
+                        dry = dr,
+                        sweep = leftHand ? 0 : 1,
+                        siblingCount = countSiblingLinks(d.source, d.target),
+                        xRotation = 0,
+                        largeArc = 0
+
+                    if (siblingCount > 1) {
+                        var siblings = getSiblingLinks(d.source, d.target)
+                        var arcScale = d3.scale.ordinal()
+                                        .domain(siblings)
+                                        .rangePoints([1, siblingCount])
+                        drx = drx/(1 + (1/siblingCount) * (arcScale(d.value) - 1))
+                        dry = dry/(1 + (1/siblingCount) * (arcScale(d.value) - 1))
+                    }
+
+                    return 'M'+x1+','+y1+'A'+drx+', '+dry+' '+xRotation+', '+largeArc+', '+sweep+' '+x2+','+y2
+                }
+
+                force.on('tick', (e) => {
+                    var q = d3.geom.quadtree(nodes),
+                        i = 0,
+                        n = nodes.length,
+                        k = .1 * e.alpha
+
+                    while (++i < n) q.visit(collide(nodes[i]))
+
+                    node.attr('transform', (d) => { return 'translate('+d.x+','+d.y+')' })
+                    path.attr('d', (d) => { return arcPath(true, d) })
                 })
-            })
+
+                force
+                    .charge(-10000)
+                    .friction(0.5)
+                    .gravity(0.15)
+                    .linkDistance(linkDistance)
+                    .size([w, h])
+                    .start()
+            }
+            update()
+
+            function collide(node) {
+                var r = node.radius + 16,
+                    nx1 = node.x - r,
+                    nx2 = node.x + r,
+                    ny1 = node.y - r,
+                    ny2 = node.y + r
+
+                return function(quad, x1, y1, x2, y2) {
+                    if (quad.point && (quad.point !== node)) {
+                        var x = node.x - quad.point.x,
+                            y = node.y - quad.point.y,
+                            l = Math.sqrt(x*x + y*y),
+                            r = node.radius + quad.point.radius
+
+                        if (l < r) {
+                            l = (l - r) / l * .5
+                            node.x -= x *= l
+                            node.y -= y *= l
+                            quad.point.x += x
+                            quad.point.y += y
+                        }
+                        return x1>nx2 || x2<nx1 || y1>ny2 || y2<ny1
+                    }
+                }
+            }
+        }
+
+        function drawGraph(json) {
+            graph = new MultiDiGraph()
+            graph.initialize(json)
         }
     </script>
 </body>
